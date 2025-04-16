@@ -56,7 +56,7 @@ const userSchema = new mongoose.Schema(
     profileUrl: {
       type: String,
       default:
-        "https://static.vecteezy.com/system/resources/previews/020/911/747/original/user-profile-icon-profile-avatar-user-icon-male-icon-face-icon-profile-icon-free-png.png",
+        "https://i.pinimg.com/originals/54/72/d1/5472d1b09d3d724228109d381d617326.jpg",
       validate(value) {
         if (!validator.isURL(value)) {
           throw new Error("Invalid URL");

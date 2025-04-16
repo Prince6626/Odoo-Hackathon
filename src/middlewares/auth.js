@@ -6,7 +6,7 @@ const userAuth = async (req, res, next) => {
     const cookies = req.cookies;
     const { token } = cookies;
     if (!token) {
-      throw new Error("Invalid Token");
+      return res.status(401).send("please login");
     }
 
     const decodedData = await jwt.verify(token, "DEV@Tinder$163971");
@@ -18,7 +18,8 @@ const userAuth = async (req, res, next) => {
     req.user = user;
     next();
   } catch (err) {
-    res.status(400).send("ERROR : " + err.message);
+    console.error("Auth Middleware Error:", err);
+    return res.status(400).send("ERROR : " + err.message);
   }
 };
 
