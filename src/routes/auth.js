@@ -18,12 +18,14 @@ authRouter.post("/signup", async (req, res) => {
       password: passwordHash,
       emailId,
     });
+    const savedUser = await user.save();
+    const token = await savedUser.getJWT();
 
-    // if (req.body.skills.length > 10) {
-    //   throw new Error("Skills cannot be more than 10");
-    // }
-    await user.save();
-    res.send("User added succsessfully");
+    res.cookie("token", token, {
+      expires: new Date(Date.now() + 2 * 3600000),
+    });
+
+    res.json({ message: "User added successfully", data: savedUser });
   } catch (err) {
     res.status(400).send("ERROR : " + err.message);
   }
